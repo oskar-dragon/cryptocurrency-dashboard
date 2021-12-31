@@ -16,13 +16,7 @@ public class NewsController {
   private final NewsService newsService;
 
   @GetMapping
-  public NewsData getData() {
+  public NewsData getNewsData() {
     return newsService.getNewsFromDb();
   }
-
-//  @GetMapping
-//  public String getDataFromApi() {
-//    newsService.getNewsFromApi();
-//    return "OK";
-//  }
 }

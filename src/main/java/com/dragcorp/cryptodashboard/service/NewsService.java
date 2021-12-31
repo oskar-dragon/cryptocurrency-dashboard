@@ -38,8 +38,6 @@ public class NewsService {
         .map(this::convertToArticle)
         .collect(Collectors.toList());
     newsRepository.insert(new NewsData(LocalDate.now(), convertedNews));
-    //TODO bulk insert new news
-    //TODO bulk remove old news
   }
 
   private Article convertToArticle(News news) {

@@ -1,9 +1,15 @@
 package com.dragcorp.cryptodashboard.client;
 
+import com.dragcorp.cryptodashboard.client.response.coingecko.ChartResponse;
+import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
+import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 
 @Component
 public class CoinGeckoClient {
@@ -20,16 +26,54 @@ public class CoinGeckoClient {
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .build();
   }
-//
-//  public Mono<> getCoinOhlc() {
-//    return this.webClient.get().uri(COIN_OHLC_URI).retrieve().bodyToMono();
-//  }
-//
-//  public Mono<> getChartData() {
-//    return this.webClient.get().uri(MARKET_CHART_URI).retrieve().bodyToMono();
-//  }
-//
-//  public Mono<> getCountersData() {
-//    return this.webClient.get().uri(MARKETS_URI).retrieve().bodyToMono();
-//  }
+
+  public CoinOhlcResponse getCoinOhlc(String coindId, String currency, int days) {
+    try {
+      return this.webClient.get()
+          .uri(uriBuilder -> uriBuilder
+              .path(COIN_OHLC_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("days", days)
+              .build(coindId))
+          .retrieve()
+          .bodyToMono(CoinOhlcResponse.class)
+          .block();
+    } catch (WebClientException exception) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public ChartResponse getChartData(String coinId, String currency, String days) {
+    try {
+      return this.webClient.get()
+          .uri(uriBuilder -> uriBuilder
+              .path(MARKET_CHART_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("days", days)
+              .build(coinId))
+          .retrieve()
+          .bodyToMono(ChartResponse.class)
+          .block();
+    } catch (WebClientException exception) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public MarketsResponse getDashboardData(String currency) {
+    try {
+      return this.webClient.get()
+          .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("order", "market_cap_desc")
+              .queryParam("per_page", 9)
+              .queryParam("page", 1)
+              .queryParam("sparkline", false)
+              .build())
+          .retrieve()
+          .bodyToMono(MarketsResponse.class)
+          .block();
+    } catch (WebClientException exception) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
+  }
 }
