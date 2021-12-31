@@ -1,29 +1,21 @@
 package com.dragcorp.cryptodashboard.data;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Map;
 
 @Data
-@Document
 public class Counters {
-  @Id
-  private String id;
-  private String topGainers;
-  private String topLosers;
+  private Map<String, BigDecimal> topGainers;
+  private Map<String, BigDecimal> topLosers;
   private BigDecimal marketCap;
-  private LocalDate createdAt;
 
-  public Counters(String topGainers,
-                  String topLosers,
-                  BigDecimal marketCap,
-                  LocalDate createdAt) {
+  public Counters(Map<String, BigDecimal> topGainers,
+                  Map<String, BigDecimal> topLosers,
+                  BigDecimal marketCap) {
     this.topGainers = topGainers;
     this.topLosers = topLosers;
     this.marketCap = marketCap;
-    this.createdAt = createdAt;
   }
 }
