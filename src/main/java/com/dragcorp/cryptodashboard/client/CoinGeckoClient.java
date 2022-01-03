@@ -2,6 +2,8 @@ package com.dragcorp.cryptodashboard.client;
 
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClientException;
 
 @Component
 public class CoinGeckoClient {
+  Logger logger = LoggerFactory.getLogger(CoinGeckoClient.class);
   private final String BASE_URL = "https://api.coingecko.com/api/v3";
   private final String MARKETS_URI = "/coins/markets";
   private final String COIN_OHLC_URI = "/coins/{id}/ohlc";
