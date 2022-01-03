@@ -29,7 +29,7 @@ public class CryptoCompareClient {
 
   public NewsResponse getNews() {
     try {
-      return this.webClient.get()
+      NewsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder
               .path(NEWS_ARTICLES_URI)
               .queryParam("lang", "EN")
@@ -39,6 +39,8 @@ public class CryptoCompareClient {
           .retrieve()
           .bodyToMono(NewsResponse.class)
           .block();
+      logger.info("get news endpoint; got a response: {}", response);
+      return response;
     } catch (WebClientException exception) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }

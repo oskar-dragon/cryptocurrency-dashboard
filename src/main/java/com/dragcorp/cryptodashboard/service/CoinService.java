@@ -20,17 +20,15 @@ public class CoinService {
   Logger logger = LoggerFactory.getLogger(CoinService.class);
   @Autowired
   private final CoinGeckoClient coinGeckoClient;
-  @Autowired
-  private final CoinRepository coinRepository;
 
-  public CoinService(CoinGeckoClient coinGeckoClient, CoinRepository coinRepository) {
+  public CoinService(CoinGeckoClient coinGeckoClient) {
     this.coinGeckoClient = coinGeckoClient;
-    this.coinRepository = coinRepository;
   }
 
   public Coin getCoinData(String id, String currency, int ohlcDays) {
+    logger.debug("fetching markets data for {}({}), days: {}", id, currency, ohlcDays);
     MarketsResponse response = coinGeckoClient.getMarketsDataForCoin(id, currency);
-    logger.info("markets data for {}({}): {}", id, currency, response.toString());
+    logger.debug("fetching markets data done");
     List<CoinResponse> coinsResponse = response.getCoins();
     Coin coin = coinsResponse
         .stream()
@@ -40,8 +38,9 @@ public class CoinService {
     if (coin == null) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }
+    logger.debug("fetching coin ohlc data");
     CoinOhlcResponse ohlcResponse = coinGeckoClient.getCoinOhlc(id, currency, ohlcDays);
-    logger.info("ohlc data for {}({}): {}", id, currency, ohlcResponse.toString());
+    logger.debug("fetching coin ohlc data done");
     coin.setOhlc(ohlcResponse.getOhlcData());
     return coin;
   }

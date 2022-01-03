@@ -18,7 +18,6 @@ public class CoinGeckoClient {
   private final String BASE_URL = "https://api.coingecko.com/api/v3";
   private final String MARKETS_URI = "/coins/markets";
   private final String COIN_OHLC_URI = "/coins/{id}/ohlc";
-
   private final WebClient webClient;
 
   public CoinGeckoClient() {
@@ -30,7 +29,7 @@ public class CoinGeckoClient {
 
   public MarketsResponse getMarketsData(String currency) {
     try {
-      return this.webClient.get()
+      MarketsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
               .queryParam("vs_currency", currency)
               .queryParam("order", "market_cap_desc")
@@ -41,6 +40,8 @@ public class CoinGeckoClient {
           .retrieve()
           .bodyToMono(MarketsResponse.class)
           .block();
+      logger.debug("get markets data endpoint; got a response: {}", response);
+      return response;
     } catch (WebClientException exception) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }
@@ -48,7 +49,7 @@ public class CoinGeckoClient {
 
   public MarketsResponse getMarketsDataForCoin(String id, String currency) {
     try {
-      return this.webClient.get()
+      MarketsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
               .queryParam("vs_currency", currency)
               .queryParam("ids", id)
@@ -56,6 +57,8 @@ public class CoinGeckoClient {
           .retrieve()
           .bodyToMono(MarketsResponse.class)
           .block();
+      logger.debug("get markets data for coin endpoint; got a response: {}", response);
+      return response;
     } catch (WebClientException exception) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }
@@ -63,7 +66,7 @@ public class CoinGeckoClient {
 
   public CoinOhlcResponse getCoinOhlc(String id, String currency, int days) {
     try {
-      return this.webClient.get()
+      CoinOhlcResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder
               .path(COIN_OHLC_URI)
               .queryParam("vs_currency", currency)
@@ -72,6 +75,8 @@ public class CoinGeckoClient {
           .retrieve()
           .bodyToMono(CoinOhlcResponse.class)
           .block();
+      logger.debug("get coin ohlc endpoint; got a response: {}", response);
+      return response;
     } catch (WebClientException exception) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }

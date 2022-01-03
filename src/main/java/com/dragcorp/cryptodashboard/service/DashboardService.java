@@ -36,9 +36,9 @@ public class DashboardService {
 
   public Dashboard getDashboardData(String currency) {
     Dashboard dashboard = new Dashboard();
-    logger.info("retrieving markets data for {}...", currency);
+    logger.info("fetching markets data for {}...", currency);
     MarketsResponse response = coinGeckoClient.getMarketsData(currency);
-    logger.info("markets data retrieved");
+    logger.info("fetching markets data done");
     List<CoinResponse> coinsResponse = response.getCoins();
     if (coinsResponse == null) {
       logger.info("coin response is null");
@@ -67,9 +67,9 @@ public class DashboardService {
         .stream()
         .skip(Math.max(0, sortedCoins.size() - 5))
         .collect(Collectors.toList());
-    logger.info("retrieving news for counters...");
+    logger.info("fetching news for counters...");
     News news = newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
-    logger.info("news retrieved");
+    logger.info("fetching news done");
     return new Counters(topGainers, topLosers, news);
   }
 }
