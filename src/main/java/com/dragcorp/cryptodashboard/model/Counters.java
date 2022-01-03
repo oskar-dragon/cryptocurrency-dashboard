@@ -10,9 +10,6 @@ public class Counters {
   private List<Coin> topLosers;
   private News news;
 
-  public Counters() {
-  }
-
   public Counters(List<Coin> topGainers, List<Coin> topLosers, News news) {
     this.topGainers = topGainers;
     this.topLosers = topLosers;
