@@ -17,7 +17,8 @@ public class CryptoCompareClient {
   private final WebClient webClient;
 
   public CryptoCompareClient() {
-    this.webClient = WebClient.builder()
+    this.webClient = WebClient
+        .builder()
         .baseUrl(BASE_URL)
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .build();

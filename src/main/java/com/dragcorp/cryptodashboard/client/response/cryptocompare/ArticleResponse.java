@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class News {
+public class ArticleResponse {
   String id;
   String guid;
   Date publishedOn;
@@ -26,20 +26,20 @@ public class News {
   NewsSourceInfo sourceInfo;
 
   @JsonCreator
-  public News(@JsonProperty("id") String id,
-              @JsonProperty("guid") String guid,
-              @JsonProperty("published_on") Date publishedOn,
-              @JsonProperty("imageurl") String imageUrl,
-              @JsonProperty("title") String title,
-              @JsonProperty("url") String url,
-              @JsonProperty("source") String source,
-              @JsonProperty("body") String body,
-              @JsonProperty("tags") String tags,
-              @JsonProperty("categories") String categories,
-              @JsonProperty("upvotes") String upvotes,
-              @JsonProperty("downvotes") String downvotes,
-              @JsonProperty("lang") String lang,
-              @JsonProperty("source_info") NewsSourceInfo sourceInfo) {
+  public ArticleResponse(@JsonProperty("id") String id,
+                         @JsonProperty("guid") String guid,
+                         @JsonProperty("published_on") Date publishedOn,
+                         @JsonProperty("imageurl") String imageUrl,
+                         @JsonProperty("title") String title,
+                         @JsonProperty("url") String url,
+                         @JsonProperty("source") String source,
+                         @JsonProperty("body") String body,
+                         @JsonProperty("tags") String tags,
+                         @JsonProperty("categories") String categories,
+                         @JsonProperty("upvotes") String upvotes,
+                         @JsonProperty("downvotes") String downvotes,
+                         @JsonProperty("lang") String lang,
+                         @JsonProperty("source_info") NewsSourceInfo sourceInfo) {
     this.id = id;
     this.guid = guid;
     this.publishedOn = publishedOn;

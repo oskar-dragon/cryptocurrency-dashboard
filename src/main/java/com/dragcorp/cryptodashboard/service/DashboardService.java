@@ -1,20 +1,19 @@
 package com.dragcorp.cryptodashboard.service;
 
 import com.dragcorp.cryptodashboard.client.CoinGeckoClient;
-import com.dragcorp.cryptodashboard.client.response.coingecko.ChartResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
-import com.dragcorp.cryptodashboard.data.Chart;
-import com.dragcorp.cryptodashboard.data.Coin;
-import com.dragcorp.cryptodashboard.data.Counters;
-import com.dragcorp.cryptodashboard.data.Dashboard;
+import com.dragcorp.cryptodashboard.model.Coin;
+import com.dragcorp.cryptodashboard.model.Counters;
+import com.dragcorp.cryptodashboard.model.Dashboard;
+import com.dragcorp.cryptodashboard.model.News;
+import com.dragcorp.cryptodashboard.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,44 +22,60 @@ public class DashboardService {
   @Autowired
   private final CoinGeckoClient coinGeckoClient;
 
-  public DashboardService(CoinGeckoClient coinGeckoClient) {
+  @Autowired
+  private final NewsRepository newsRepository;
+
+  public DashboardService(CoinGeckoClient coinGeckoClient, NewsRepository newsRepository) {
     this.coinGeckoClient = coinGeckoClient;
+    this.newsRepository = newsRepository;
   }
 
-  public Dashboard getDashboardData(String currency, String chartDays) {
-    MarketsResponse response = coinGeckoClient.getDashboardData(currency);
+  public Dashboard getDashboardData(String currency) {
+    MarketsResponse response = coinGeckoClient.getMarketsData(currency);
     List<CoinResponse> coinsResponse = response.getCoins();
+
+    List<Coin> coins = coinsResponse
+        .stream()
+        .map(this::convertToCoin)
+        .collect(Collectors.toList());
 
     List<CoinResponse> sortedCoins = coinsResponse
         .stream()
         .sorted(Comparator.comparing(CoinResponse::getPriceChangePerc24h))
         .collect(Collectors.toList());
-
-//    Map<String, BigDecimal> topGainers;
-//    Map<String, BigDecimal> topLosers;
-//    Counters countersData = new Counters(topGainers, topLosers, BigDecimal.TEN);
-
-    List<Coin> coins = coinsResponse
+    List<Coin> topGainers = sortedCoins
         .stream()
-        .map(coin -> convertToCoin(coin, currency, chartDays))
+        .limit(5)
+        .map(this::convertToCoin)
+        .collect(Collectors.toList());
+    List<Coin> topLosers = sortedCoins
+        .stream()
+        .skip(Math.max(0, sortedCoins.size() - 5))
+        .map(this::convertToCoin)
         .collect(Collectors.toList());
 
-//    Dashboard dashboardData = new Dashboard(coins, countersData);
-    return null;
+    News news = newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
+
+    Counters countersData = new Counters(topGainers, topLosers, news);
+
+    return new Dashboard(coins, countersData);
   }
 
-  private Coin convertToCoin(CoinResponse response, String currency, String chartDays) {
-    ChartResponse chartResponse = coinGeckoClient.getChartData(response.getId(), currency, chartDays);
+  private Coin convertToCoin(CoinResponse response) {
     return new Coin(
+        response.getId(),
         response.getName(),
+        response.getSymbol(),
         response.getCurrentPrice(),
+        response.getPriceChangePerc24h(),
         response.getTotalVolume(),
+        response.getMarketCapRank(),
+        response.getHigh24h(),
+        response.getLow24h(),
+        response.getAth(),
+        response.getAtl(),
         response.getImage(),
-        new Chart(
-            chartResponse.getPrices(),
-            chartResponse.getMarketCaps(),
-            chartResponse.getTotalVolumes()
-        )
+        response.getLastUpdated()
     );
   }
 }

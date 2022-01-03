@@ -1,4 +1,4 @@
-package com.dragcorp.cryptodashboard.data;
+package com.dragcorp.cryptodashboard.model;
 
 import lombok.Data;
 

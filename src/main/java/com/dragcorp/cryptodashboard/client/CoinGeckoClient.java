@@ -1,6 +1,5 @@
 package com.dragcorp.cryptodashboard.client;
 
-import com.dragcorp.cryptodashboard.client.response.coingecko.ChartResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +14,6 @@ import org.springframework.web.reactive.function.client.WebClientException;
 public class CoinGeckoClient {
   private final String BASE_URL = "https://api.coingecko.com/api/v3";
   private final String MARKETS_URI = "/coins/markets";
-  private final String MARKET_CHART_URI = "/coins/{id}/market_chart";
   private final String COIN_OHLC_URI = "/coins/{id}/ohlc";
 
   private final WebClient webClient;
@@ -27,50 +25,34 @@ public class CoinGeckoClient {
         .build();
   }
 
-  public CoinOhlcResponse getCoinOhlc(String coindId, String currency, int days) {
+  public MarketsResponse getMarketsData(String currency) {
+    try {
+      return this.webClient.get()
+          .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("order", "market_cap_desc")
+              .queryParam("per_page", 100)
+              .queryParam("page", 1)
+              .queryParam("sparkline", false)
+              .build())
+          .retrieve()
+          .bodyToMono(MarketsResponse.class)
+          .block();
+    } catch (WebClientException exception) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public CoinOhlcResponse getCoinOhlc(String coinId, String currency, int days) {
     try {
       return this.webClient.get()
           .uri(uriBuilder -> uriBuilder
               .path(COIN_OHLC_URI)
               .queryParam("vs_currency", currency)
               .queryParam("days", days)
-              .build(coindId))
-          .retrieve()
-          .bodyToMono(CoinOhlcResponse.class)
-          .block();
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  public ChartResponse getChartData(String coinId, String currency, String days) {
-    try {
-      return this.webClient.get()
-          .uri(uriBuilder -> uriBuilder
-              .path(MARKET_CHART_URI)
-              .queryParam("vs_currency", currency)
-              .queryParam("days", days)
               .build(coinId))
           .retrieve()
-          .bodyToMono(ChartResponse.class)
-          .block();
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  public MarketsResponse getDashboardData(String currency) {
-    try {
-      return this.webClient.get()
-          .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
-              .queryParam("vs_currency", currency)
-              .queryParam("order", "market_cap_desc")
-              .queryParam("per_page", 9)
-              .queryParam("page", 1)
-              .queryParam("sparkline", false)
-              .build())
-          .retrieve()
-          .bodyToMono(MarketsResponse.class)
+          .bodyToMono(CoinOhlcResponse.class)
           .block();
     } catch (WebClientException exception) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);

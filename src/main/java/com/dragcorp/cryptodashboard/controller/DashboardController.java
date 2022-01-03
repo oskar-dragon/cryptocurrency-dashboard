@@ -1,6 +1,6 @@
-package com.dragcorp.cryptodashboard.api;
+package com.dragcorp.cryptodashboard.controller;
 
-import com.dragcorp.cryptodashboard.data.Dashboard;
+import com.dragcorp.cryptodashboard.model.Dashboard;
 import com.dragcorp.cryptodashboard.service.DashboardService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DashboardController {
   private final DashboardService dashboardDataService;
 
-  @GetMapping(value = "/{currency}/{chartDays}")
-  public Dashboard getDashboardData(@PathVariable("currency") String currency,
-                                    @PathVariable("chartDays") String chartDays) {
-    return dashboardDataService.getDashboardData(currency, chartDays);
+  @GetMapping(value = "/{currency}")
+  public Dashboard getDashboardData(@PathVariable("currency") String currency) {
+    return dashboardDataService.getDashboardData(currency);
   }
 }

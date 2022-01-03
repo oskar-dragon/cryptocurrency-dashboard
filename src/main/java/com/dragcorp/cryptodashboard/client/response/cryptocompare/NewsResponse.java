@@ -12,8 +12,8 @@ import java.util.List;
 public class NewsResponse {
   int type;
   String message;
-  List<News> promoted;
-  List<News> data;
+  List<ArticleResponse> promoted;
+  List<ArticleResponse> data;
   RateLimit rateLimit;
   boolean hasWarning;
 
@@ -21,8 +21,8 @@ public class NewsResponse {
   public NewsResponse(
       @JsonProperty("Type") int type,
       @JsonProperty("Message") String message,
-      @JsonProperty("Promoted") List<News> promoted,
-      @JsonProperty("Data") List<News> data,
+      @JsonProperty("Promoted") List<ArticleResponse> promoted,
+      @JsonProperty("Data") List<ArticleResponse> data,
       @JsonProperty("RateLimit") RateLimit rateLimit,
       @JsonProperty("HasWarning") boolean hasWarning
   ) {
