@@ -1,6 +1,6 @@
-package com.dragcorp.cryptodashboard.api;
+package com.dragcorp.cryptodashboard.controller;
 
-import com.dragcorp.cryptodashboard.data.NewsData;
+import com.dragcorp.cryptodashboard.client.response.cryptocompare.NewsResponse;
 import com.dragcorp.cryptodashboard.service.NewsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class NewsController {
   private final NewsService newsService;
 
   @GetMapping
-  public NewsData getNewsData() {
-    return newsService.getNewsFromDb();
+  public NewsResponse getNewsData() {
+    return newsService.getNewsFromApi();
   }
 }

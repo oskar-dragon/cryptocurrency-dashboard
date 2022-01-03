@@ -1,4 +1,4 @@
-package com.dragcorp.cryptodashboard.data;
+package com.dragcorp.cryptodashboard.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -10,14 +10,14 @@ import java.util.List;
 
 @Data
 @Document("news")
-public class NewsData {
+public class News {
   @Id
   private String id;
   @Indexed
   private LocalDate createdAt;
   private List<Article> news;
 
-  public NewsData(LocalDate createdAt, List<Article> news) {
+  public News(LocalDate createdAt, List<Article> news) {
     this.createdAt = createdAt;
     this.news = news;
   }

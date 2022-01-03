@@ -1,18 +1,15 @@
 package com.dragcorp.cryptodashboard.service;
 
 import com.dragcorp.cryptodashboard.client.CryptoCompareClient;
-import com.dragcorp.cryptodashboard.client.response.cryptocompare.News;
 import com.dragcorp.cryptodashboard.client.response.cryptocompare.NewsResponse;
-import com.dragcorp.cryptodashboard.dao.NewsRepository;
-import com.dragcorp.cryptodashboard.data.Article;
-import com.dragcorp.cryptodashboard.data.ArticleSourceInfo;
-import com.dragcorp.cryptodashboard.data.NewsData;
+import com.dragcorp.cryptodashboard.repository.NewsRepository;
+import com.dragcorp.cryptodashboard.model.Article;
+import com.dragcorp.cryptodashboard.model.ArticleSourceInfo;
+import com.dragcorp.cryptodashboard.model.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class NewsService {
@@ -27,20 +24,21 @@ public class NewsService {
     this.newsRepository = newsRepository;
   }
 
-  public NewsData getNewsFromDb() {
+  public News getNewsFromDb() {
     return newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
   }
 
-  public void getNewsFromApi() {
+  public NewsResponse getNewsFromApi() {
     NewsResponse news = cryptoCompareClient.getNews();
-    List<Article> convertedNews = news.getData()
-        .stream()
-        .map(this::convertToArticle)
-        .collect(Collectors.toList());
-    newsRepository.insert(new NewsData(LocalDate.now(), convertedNews));
+//    List<Article> convertedNews = news.getData()
+//        .stream()
+//        .map(this::convertToArticle)
+//        .collect(Collectors.toList());
+//    newsRepository.insert(new NewsData(LocalDate.now(), convertedNews));
+    return news;
   }
 
-  private Article convertToArticle(News news) {
+  private Article convertToArticle(com.dragcorp.cryptodashboard.client.response.cryptocompare.News news) {
     return new Article(
         news.getId(),
         news.getGuid(),
