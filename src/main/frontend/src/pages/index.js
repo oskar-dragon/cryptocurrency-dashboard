@@ -1,2 +1,2 @@
-export { default as Home } from "./Home";
-export { default as CoinDetails } from "./CoinDetails";
+export { default as Home } from "./home";
+export { default as CoinDetails } from "./coin-details";
