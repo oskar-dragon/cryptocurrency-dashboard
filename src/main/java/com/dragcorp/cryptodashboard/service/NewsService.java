@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class NewsService {
-  Logger logger = LoggerFactory.getLogger(NewsService.class);
   @Autowired
   private final CryptoCompareClient cryptoCompareClient;
   @Autowired
   private final NewsRepository newsRepository;
+  Logger logger = LoggerFactory.getLogger(NewsService.class);
 
   public NewsService(CryptoCompareClient cryptoCompareClient, NewsRepository newsRepository) {
     this.cryptoCompareClient = cryptoCompareClient;

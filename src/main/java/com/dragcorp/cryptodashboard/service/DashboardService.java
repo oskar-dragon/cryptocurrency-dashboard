@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class DashboardService {
-  Logger logger = LoggerFactory.getLogger(DashboardService.class);
   @Autowired
   private final CoinGeckoClient coinGeckoClient;
   @Autowired
   private final NewsRepository newsRepository;
+  Logger logger = LoggerFactory.getLogger(DashboardService.class);
 
   public DashboardService(CoinGeckoClient coinGeckoClient, NewsRepository newsRepository) {
     this.coinGeckoClient = coinGeckoClient;

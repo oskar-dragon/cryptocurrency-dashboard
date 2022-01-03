@@ -14,11 +14,11 @@ import org.springframework.web.reactive.function.client.WebClientException;
 
 @Component
 public class CoinGeckoClient {
-  Logger logger = LoggerFactory.getLogger(CoinGeckoClient.class);
   private final String BASE_URL = "https://api.coingecko.com/api/v3";
   private final String MARKETS_URI = "/coins/markets";
   private final String COIN_OHLC_URI = "/coins/{id}/ohlc";
   private final WebClient webClient;
+  Logger logger = LoggerFactory.getLogger(CoinGeckoClient.class);
 
   public CoinGeckoClient() {
     this.webClient = WebClient.builder()

@@ -13,11 +13,11 @@ import org.springframework.web.reactive.function.client.WebClientException;
 
 @Component
 public class CryptoCompareClient {
-  Logger logger = LoggerFactory.getLogger(CryptoCompareClient.class);
   private final String BASE_URL = "https://min-api.cryptocompare.com/data";
   private final String NEWS_ARTICLES_URI = "/v2/news/";
   private final String API_KEY = "Apikey e3b0b857a19cef247f3996360c579ad10750f67b5189013f3bdb3af353c5b92e";
   private final WebClient webClient;
+  Logger logger = LoggerFactory.getLogger(CryptoCompareClient.class);
 
   public CryptoCompareClient() {
     this.webClient = WebClient
