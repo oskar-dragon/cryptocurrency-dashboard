@@ -43,14 +43,29 @@ public class CoinGeckoClient {
     }
   }
 
-  public CoinOhlcResponse getCoinOhlc(String coinId, String currency, int days) {
+  public MarketsResponse getMarketsDataForCoin(String id, String currency) {
+    try {
+      return this.webClient.get()
+          .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("ids", id)
+              .build())
+          .retrieve()
+          .bodyToMono(MarketsResponse.class)
+          .block();
+    } catch (WebClientException exception) {
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  public CoinOhlcResponse getCoinOhlc(String id, String currency, int days) {
     try {
       return this.webClient.get()
           .uri(uriBuilder -> uriBuilder
               .path(COIN_OHLC_URI)
               .queryParam("vs_currency", currency)
               .queryParam("days", days)
-              .build(coinId))
+              .build(id))
           .retrieve()
           .bodyToMono(CoinOhlcResponse.class)
           .block();
