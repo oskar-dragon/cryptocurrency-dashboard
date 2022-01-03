@@ -5,7 +5,6 @@ import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
 import com.dragcorp.cryptodashboard.model.Coin;
-import com.dragcorp.cryptodashboard.repository.CoinRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

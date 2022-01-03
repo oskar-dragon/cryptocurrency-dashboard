@@ -7,7 +7,6 @@ import com.dragcorp.cryptodashboard.model.Coin;
 import com.dragcorp.cryptodashboard.model.Counters;
 import com.dragcorp.cryptodashboard.model.Dashboard;
 import com.dragcorp.cryptodashboard.model.News;
-import com.dragcorp.cryptodashboard.repository.CoinRepository;
 import com.dragcorp.cryptodashboard.repository.NewsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +35,12 @@ public class DashboardService {
 
   public Dashboard getDashboardData(String currency) {
     Dashboard dashboard = new Dashboard();
-    logger.info("fetching markets data for {}...", currency);
+    logger.debug("fetching markets data for {}...", currency);
     MarketsResponse response = coinGeckoClient.getMarketsData(currency);
-    logger.info("fetching markets data done");
+    logger.debug("fetching markets data done");
     List<CoinResponse> coinsResponse = response.getCoins();
     if (coinsResponse == null) {
-      logger.info("coin response is null");
+      logger.debug("coin response is null");
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     }
     List<Coin> coins = coinsResponse
@@ -50,7 +49,7 @@ public class DashboardService {
         .collect(Collectors.toList());
     dashboard.setCoins(coins);
     dashboard.setCounters(createCounters(coins));
-    logger.info("dashboard data: {}", dashboard);
+    logger.debug("dashboard data: {}", dashboard);
     return dashboard;
   }
 
@@ -67,9 +66,9 @@ public class DashboardService {
         .stream()
         .skip(Math.max(0, sortedCoins.size() - 5))
         .collect(Collectors.toList());
-    logger.info("fetching news for counters...");
+    logger.debug("fetching news for counters...");
     News news = newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
-    logger.info("fetching news done");
+    logger.debug("fetching news done");
     return new Counters(topGainers, topLosers, news);
   }
 }

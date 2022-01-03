@@ -28,20 +28,20 @@ public class NewsService {
   }
 
   public News getNewsFromDb() {
-    logger.info("fetching news from db...");
+    logger.debug("fetching news from db...");
     return newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
   }
 
   public void fetchNewsFromApi() {
-    logger.info("fetching news from api...");
+    logger.debug("fetching news from api...");
     NewsResponse newsResponse = cryptoCompareClient.getNews();
-    logger.info("news data: {}", newsResponse.toString());
+    logger.debug("fetching news from api done");
     List<Article> convertedNews = newsResponse.getData()
         .stream()
         .map(ResponseConverter::convertToArticle)
         .collect(Collectors.toList());
-    logger.info("inserting news...");
+    logger.debug("inserting news...");
     newsRepository.insert(new News(LocalDate.now(), convertedNews));
-    logger.info("news inserted");
+    logger.debug("inserting news done");
   }
 }
