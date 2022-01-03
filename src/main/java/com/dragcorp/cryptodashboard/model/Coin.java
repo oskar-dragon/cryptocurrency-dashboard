@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Document
@@ -25,6 +26,7 @@ public class Coin {
   private BigDecimal atl;
   private String image;
   private LocalDate lastUpdated;
+  private List<List<BigDecimal>> ohlc;
 
   public Coin(String apiId,
               String name,
@@ -52,5 +54,13 @@ public class Coin {
     this.atl = atl;
     this.image = image;
     this.lastUpdated = lastUpdated;
+  }
+
+  public List<List<BigDecimal>> getOhlc() {
+    return ohlc;
+  }
+
+  public void setOhlc(List<List<BigDecimal>> ohlc) {
+    this.ohlc = ohlc;
   }
 }

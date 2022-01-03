@@ -23,7 +23,7 @@ public class ArticleResponse {
   String upvotes;
   String downvotes;
   String lang;
-  NewsSourceInfo sourceInfo;
+  ArticleSourceInfoResponse sourceInfo;
 
   @JsonCreator
   public ArticleResponse(@JsonProperty("id") String id,
@@ -39,7 +39,7 @@ public class ArticleResponse {
                          @JsonProperty("upvotes") String upvotes,
                          @JsonProperty("downvotes") String downvotes,
                          @JsonProperty("lang") String lang,
-                         @JsonProperty("source_info") NewsSourceInfo sourceInfo) {
+                         @JsonProperty("source_info") ArticleSourceInfoResponse sourceInfo) {
     this.id = id;
     this.guid = guid;
     this.publishedOn = publishedOn;

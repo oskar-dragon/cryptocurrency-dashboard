@@ -7,15 +7,15 @@ import lombok.Value;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NewsSourceInfo {
+public class ArticleSourceInfoResponse {
   String name;
   String lang;
   String img;
 
   @JsonCreator
-  public NewsSourceInfo(@JsonProperty("name") String name,
-                        @JsonProperty("lang") String lang,
-                        @JsonProperty("img") String img) {
+  public ArticleSourceInfoResponse(@JsonProperty("name") String name,
+                                   @JsonProperty("lang") String lang,
+                                   @JsonProperty("img") String img) {
     this.name = name;
     this.lang = lang;
     this.img = img;
