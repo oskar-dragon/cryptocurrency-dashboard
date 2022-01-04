@@ -41,7 +41,7 @@ public class DashboardService {
     List<CoinResponse> coinsResponse = response.getCoins();
     if (coinsResponse == null) {
       logger.debug("coin response is null");
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "coin response is null");
     }
     List<Coin> coins = coinsResponse
         .stream()

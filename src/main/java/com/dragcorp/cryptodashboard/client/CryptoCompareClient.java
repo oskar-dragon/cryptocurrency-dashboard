@@ -4,12 +4,11 @@ import com.dragcorp.cryptodashboard.client.response.cryptocompare.NewsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Component
 public class CryptoCompareClient {
@@ -41,8 +40,8 @@ public class CryptoCompareClient {
           .block();
       logger.info("get news endpoint; got a response: {}", response);
       return response;
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    } catch (WebClientResponseException exception) {
+      throw new HttpClientErrorException(exception.getStatusCode());
     }
   }
 }

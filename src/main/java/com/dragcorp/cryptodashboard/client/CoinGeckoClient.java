@@ -1,7 +1,10 @@
 package com.dragcorp.cryptodashboard.client;
 
+import com.dragcorp.cryptodashboard.client.response.coingecko.ErrorResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Component
 public class CoinGeckoClient {
@@ -32,18 +35,16 @@ public class CoinGeckoClient {
       MarketsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
               .queryParam("vs_currency", currency)
-              .queryParam("order", "market_cap_desc")
-              .queryParam("per_page", 100)
-              .queryParam("page", 1)
-              .queryParam("sparkline", false)
               .build())
           .retrieve()
           .bodyToMono(MarketsResponse.class)
           .block();
       logger.debug("get markets data endpoint; got a response: {}", response);
       return response;
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    } catch (WebClientResponseException exception) {
+      String message = deserialiseErrorResponse(exception.getResponseBodyAsString());
+      logger.debug("error response from gecko api: {}", message);
+      throw new HttpClientErrorException(exception.getStatusCode(), message);
     }
   }
 
@@ -59,8 +60,10 @@ public class CoinGeckoClient {
           .block();
       logger.debug("get markets data for coin endpoint; got a response: {}", response);
       return response;
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    } catch (WebClientResponseException exception) {
+      String message = deserialiseErrorResponse(exception.getResponseBodyAsString());
+      logger.debug("error response from gecko api: {}", message);
+      throw new HttpClientErrorException(exception.getStatusCode(), message);
     }
   }
 
@@ -77,8 +80,21 @@ public class CoinGeckoClient {
           .block();
       logger.debug("get coin ohlc endpoint; got a response: {}", response);
       return response;
-    } catch (WebClientException exception) {
-      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+    } catch (WebClientResponseException exception) {
+      String message = deserialiseErrorResponse(exception.getResponseBodyAsString());
+      logger.debug("error response from gecko api: {}", message);
+      throw new HttpClientErrorException(exception.getStatusCode(), message);
+    }
+  }
+
+  private String deserialiseErrorResponse(String body) {
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      ErrorResponse response = mapper.readValue(body, ErrorResponse.class);
+      return response.getMessage();
+    } catch (JsonProcessingException jsonProcessingException) {
+      logger.debug("error parsing response");
+      throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
