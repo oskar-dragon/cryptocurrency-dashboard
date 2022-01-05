@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/coin")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CoinController {
   private final CoinService coinService;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Logo, Group, Link } from "./style/menu.styled";
 
 export default function Menu({ children, ...restProps }) {

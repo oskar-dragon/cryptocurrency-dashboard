@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Menu } from "../components";
-import * as ROUTES from "../constants/routes";
+import { Menu } from "../Components";
+import * as ROUTES from "../Constants/routes";
 
 export default function Sidebar() {
   const [currentLink, setCurrentLink] = useState(ROUTES.HOME);
@@ -23,19 +23,13 @@ export default function Sidebar() {
         <Menu.Link
           onClick={() => handleClick(ROUTES.COIN_DETAILS)}
           active={currentLink === ROUTES.COIN_DETAILS}
-          to={ROUTES.HOME}
+          to={ROUTES.COIN_DETAILS}
         >
           Exchanges
         </Menu.Link>
-        <Menu.Link active={currentLink === ROUTES.HOME} to={ROUTES.HOME}>
-          Portfolio
-        </Menu.Link>
-        <Menu.Link active={currentLink === ROUTES.HOME} to={ROUTES.HOME}>
-          Watchlist
-        </Menu.Link>
-        <Menu.Link active={currentLink === ROUTES.HOME} to={ROUTES.HOME}>
-          Settings
-        </Menu.Link>
+        <Menu.Link to={"404"}>Portfolio</Menu.Link>
+        <Menu.Link to={"404"}>Watchlist</Menu.Link>
+        <Menu.Link to={"404"}>Settings</Menu.Link>
       </Menu.Group>
     </Menu>
   );
