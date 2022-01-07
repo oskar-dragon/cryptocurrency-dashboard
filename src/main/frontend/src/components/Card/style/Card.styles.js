@@ -11,30 +11,28 @@ export const Container = styled.div`
   background: var(--clr-light);
   width: 100%;
   max-width: 350px;
-  height: 260px;
   padding: 1em;
   border-radius: 8px;
-  overflow: auto;
+  height: 250px;
 `;
 
-export const Content = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: ${props => props.flexDirection};
   justify-content: space-between;
   align-items: center;
-  overflow: scroll;
-`; // For wrapping content inside of cards
+`;
 
-export const Header = styled.h3`
+export const HeaderTitle = styled.h3`
   margin: 0;
   font-size: var(--fs-subtitle);
 `;
 
-export const FiltersGroup = styled.ul`
+export const FiltersGroup = styled.div`
   display: flex;
 `;
 
-export const Filter = styled.li`
+export const Filter = styled.a`
   padding: 0.1em 0.5em;
   margin-left: 0.5em;
   background: ${({ active }) =>
@@ -46,15 +44,29 @@ export const Filter = styled.li`
   cursor: pointer;
 `;
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: ${props => props.flexDirection};
+  justify-content: space-between;
+  align-items: center;
+
+  height: calc(100% - 20px);
+  overflow-y: auto;
+`;
+
 export const CoinWrapper = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5em 1em;
+
   justify-content: space-between;
   margin-top: 1em;
   padding-bottom: 0.7em;
   border-bottom: 1px solid lightgrey;
+
+  ${Content} &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 `;
 
 export const CoinTitle = styled.h4`
