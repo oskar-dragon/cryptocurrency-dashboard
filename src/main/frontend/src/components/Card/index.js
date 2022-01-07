@@ -3,7 +3,8 @@ import {
   Group,
   Container,
   Content,
-  Header,
+  HeaderContainer,
+  HeaderTitle,
   FiltersGroup,
   Filter,
   CoinTitle,
@@ -25,8 +26,15 @@ Card.Content = function CardContent({ children, ...restProps }) {
   return <Content {...restProps}>{children}</Content>;
 };
 
-Card.Header = function CardHeader({ children, ...restProps }) {
-  return <Header {...restProps}>{children}</Header>;
+Card.HeaderContainer = function CardHeaderContainer({
+  children,
+  ...restProps
+}) {
+  return <HeaderContainer {...restProps}>{children}</HeaderContainer>;
+};
+
+Card.HeaderTitle = function CardTitle({ children, ...restProps }) {
+  return <HeaderTitle {...restProps}>{children}</HeaderTitle>;
 };
 
 Card.FiltersGroup = function CardFiltersGroup({ children, ...restProps }) {
