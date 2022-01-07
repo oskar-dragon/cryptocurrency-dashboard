@@ -60,6 +60,19 @@ const GlobalStyle = createGlobalStyle`
   outline: 3px solid var(--clr-accent-primary);
   outline-offset: 3px;
 }
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: #AAAAAA;
+}
+
+
 `;
 
 export default GlobalStyle;
