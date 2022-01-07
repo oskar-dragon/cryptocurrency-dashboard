@@ -1,69 +1,58 @@
 import React from "react";
 import {
+  Group,
   Container,
+  Content,
   Header,
-  Title,
-  FiltersContainer,
+  FiltersGroup,
   Filter,
-  DataContainer,
-  DataRow,
-  DataColumn,
-  CoinName,
-  CoinPrice,
-  CoinMarketCap,
-  CoinPriceChange,
+  CoinTitle,
+  MarketCap,
+  Price,
+  PriceChange,
+  CoinWrapper,
 } from "./style/Card.styles";
 
 export default function Card({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
+Card.Group = function CardGroup({ children, ...restProps }) {
+  return <Group {...restProps}>{children}</Group>;
+};
+
+Card.Content = function CardContent({ children, ...restProps }) {
+  return <Content {...restProps}>{children}</Content>;
+};
+
 Card.Header = function CardHeader({ children, ...restProps }) {
   return <Header {...restProps}>{children}</Header>;
 };
 
-Card.Title = function CardTitle({ children, ...restProps }) {
-  return <Title {...restProps}>{children}</Title>;
-};
-
-Card.FiltersContainer = function CardFiltersContainer({
-  children,
-  ...restProps
-}) {
-  return <FiltersContainer {...restProps}>{children}</FiltersContainer>;
+Card.FiltersGroup = function CardFiltersGroup({ children, ...restProps }) {
+  return <FiltersGroup {...restProps}>{children}</FiltersGroup>;
 };
 
 Card.Filter = function CardFilter({ children, ...restProps }) {
   return <Filter {...restProps}>{children}</Filter>;
 };
 
-Card.DataContainer = function CardDataContainer({ children, ...restProps }) {
-  return <DataContainer {...restProps}>{children}</DataContainer>;
+Card.CoinTitle = function CardCoinTitle({ children, ...restProps }) {
+  return <CoinTitle {...restProps}>{children}</CoinTitle>;
 };
 
-Card.DataRow = function CardDataRow({ children, ...restProps }) {
-  return <DataRow {...restProps}>{children}</DataRow>;
+Card.MarketCap = function CardMarketCap({ children, ...restProps }) {
+  return <MarketCap {...restProps}>{children}</MarketCap>;
 };
 
-Card.DataColumn = function CardDataColumn({ children, ...restProps }) {
-  return <DataColumn {...restProps}>{children}</DataColumn>;
+Card.Price = function CardPrice({ children, ...restProps }) {
+  return <Price {...restProps}>{children}</Price>;
 };
 
-Card.CoinName = function CardCoinName({ children, ...restProps }) {
-  return <CoinName {...restProps}>{children}</CoinName>;
+Card.PriceChange = function CardPriceChange({ children, ...restProps }) {
+  return <PriceChange {...restProps}>{children}</PriceChange>;
 };
 
-Card.CoinPrice = function CardCoinPrice({ children, ...restProps }) {
-  return <CoinPrice {...restProps}>{children}</CoinPrice>;
-};
-
-Card.CoinMarketCap = function CardCoinMarketCap({ children, ...restProps }) {
-  return <CoinMarketCap {...restProps}>{children}</CoinMarketCap>;
-};
-
-Card.CoinPriceChange = function CardCoinPriceChange({
-  children,
-  ...restProps
-}) {
-  return <CoinPriceChange {...restProps}>{children}</CoinPriceChange>;
+Card.CoinWrapper = function CardCoinTitle({ children, ...restProps }) {
+  return <CoinWrapper {...restProps}>{children}</CoinWrapper>;
 };

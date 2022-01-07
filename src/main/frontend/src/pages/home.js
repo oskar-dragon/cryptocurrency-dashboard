@@ -1,6 +1,6 @@
 import React from "react";
-import { MainContent } from "../Containers";
+import { PerformerContainer } from "../Containers";
 
 export default function Home() {
-  return <MainContent />;
+  return <PerformerContainer />;
 }

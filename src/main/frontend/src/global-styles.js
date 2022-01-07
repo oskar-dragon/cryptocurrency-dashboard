@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 
   --fs-h1: 3rem;
   --fs-h2: 2.25rem;
-  --fs-subtitle: 1rem;
+  --fs-subtitle: 1.2rem;
   --fs-body: 0.875rem;
   --fs-small-text: 0.75rem
 
@@ -43,6 +43,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: var(--ff-primary);
     color: var(--clr-black);
     line-height: 1.6;
+    font-size: var(--fs-body)
   }
 
   ul {
