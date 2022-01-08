@@ -6,9 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.5em;
-  width: 250px;
   height: 100%;
-  position: fixed;
 `;
 
 export const Logo = styled.p`
