@@ -19,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
   --clr-accent-secondary: #66A995;
   --clr-warning: #C51641;
 
-  --fs-h1: 3rem;
-  --fs-h2: 2.25rem;
+  --fs-h1: 1.9rem;
+  --fs-h2: 1.4rem;
   --fs-subtitle: 1.2rem;
   --fs-body: 0.875rem;
   --fs-small-text: 0.75rem
@@ -38,12 +38,16 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    padding: 0;
     background: var(--clr-bg);
     font-family: var(--ff-primary);
     color: var(--clr-black);
     line-height: 1.6;
     font-size: var(--fs-body)
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
   }
 
   ul {
@@ -71,8 +75,6 @@ const GlobalStyle = createGlobalStyle`
   border-radius: 9999px;
   background-color: #AAAAAA;
 }
-
-
 `;
 
 export default GlobalStyle;
