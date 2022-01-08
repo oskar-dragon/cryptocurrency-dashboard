@@ -8,6 +8,7 @@ import {
 } from "./style/Segment.styles";
 
 export default function Segment({ children, ...restProps }) {
+  console.log(restProps);
   return <Container {...restProps}>{children}</Container>;
 }
 
