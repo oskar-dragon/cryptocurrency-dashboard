@@ -15,10 +15,10 @@ public class News {
   private String id;
   @Indexed
   private LocalDate createdAt;
-  private List<Article> news;
+  private List<Article> data;
 
-  public News(LocalDate createdAt, List<Article> news) {
+  public News(LocalDate createdAt, List<Article> data) {
     this.createdAt = createdAt;
-    this.news = news;
+    this.data = data;
   }
 }

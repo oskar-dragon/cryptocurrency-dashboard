@@ -38,7 +38,7 @@ public class CryptoCompareClient {
           .retrieve()
           .bodyToMono(NewsResponse.class)
           .block();
-      logger.info("get news endpoint; got a response: {}", response);
+      logger.debug("get news endpoint; got a response: {}", response);
       return response;
     } catch (WebClientResponseException exception) {
       throw new HttpClientErrorException(exception.getStatusCode());

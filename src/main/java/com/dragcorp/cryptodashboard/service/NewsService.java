@@ -16,23 +16,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class NewsService {
-  @Autowired
   private final CryptoCompareClient cryptoCompareClient;
-  @Autowired
   private final NewsRepository newsRepository;
   Logger logger = LoggerFactory.getLogger(NewsService.class);
 
+  @Autowired
   public NewsService(CryptoCompareClient cryptoCompareClient, NewsRepository newsRepository) {
     this.cryptoCompareClient = cryptoCompareClient;
     this.newsRepository = newsRepository;
   }
 
-  public News getNewsFromDb() {
+  public News getNewsFromDb(LocalDate date) {
     logger.debug("fetching news from db...");
-    return newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
+    return newsRepository.findFirstByOrderByCreatedAtDesc(date);
   }
 
-  public void fetchNewsFromApi() {
+  public News fetchNewsFromApi() {
     logger.debug("fetching news from api...");
     NewsResponse newsResponse = cryptoCompareClient.getNews();
     logger.debug("fetching news from api done");
@@ -41,7 +40,9 @@ public class NewsService {
         .map(ResponseConverter::convertToArticle)
         .collect(Collectors.toList());
     logger.debug("inserting news...");
-    newsRepository.insert(new News(LocalDate.now(), convertedNews));
+    News news = new News(LocalDate.now(), convertedNews);
+    newsRepository.insert(news);
     logger.debug("inserting news done");
+    return news;
   }
 }

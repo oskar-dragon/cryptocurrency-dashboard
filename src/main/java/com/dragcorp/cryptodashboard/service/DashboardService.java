@@ -7,7 +7,6 @@ import com.dragcorp.cryptodashboard.model.Coin;
 import com.dragcorp.cryptodashboard.model.Counters;
 import com.dragcorp.cryptodashboard.model.Dashboard;
 import com.dragcorp.cryptodashboard.model.News;
-import com.dragcorp.cryptodashboard.repository.NewsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +21,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class DashboardService {
-  @Autowired
   private final CoinGeckoClient coinGeckoClient;
-  @Autowired
-  private final NewsRepository newsRepository;
+  private final NewsService newsService;
   Logger logger = LoggerFactory.getLogger(DashboardService.class);
 
-  public DashboardService(CoinGeckoClient coinGeckoClient, NewsRepository newsRepository) {
+  @Autowired
+  public DashboardService(CoinGeckoClient coinGeckoClient, NewsService newsService) {
     this.coinGeckoClient = coinGeckoClient;
-    this.newsRepository = newsRepository;
+    this.newsService = newsService;
   }
 
   public Dashboard getDashboardData(String currency) {
@@ -66,8 +64,10 @@ public class DashboardService {
         .stream()
         .skip(Math.max(0, sortedCoins.size() - 5))
         .collect(Collectors.toList());
-    logger.debug("fetching news for counters...");
-    News news = newsRepository.findFirstByOrderByCreatedAtDesc(LocalDate.now());
+    News news = newsService.getNewsFromDb(LocalDate.now());
+    if (news == null) {
+      news = newsService.fetchNewsFromApi();
+    }
     logger.debug("fetching news done");
     return new Counters(topGainers, topLosers, news);
   }

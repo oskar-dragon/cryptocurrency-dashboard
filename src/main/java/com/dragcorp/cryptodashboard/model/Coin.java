@@ -1,19 +1,14 @@
 package com.dragcorp.cryptodashboard.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Document
 public class Coin {
-  @Id
   private String id;
-  private String apiId;
   private String name;
   private String symbol;
   private BigDecimal currentPrice;
@@ -28,7 +23,7 @@ public class Coin {
   private LocalDate lastUpdated;
   private List<List<BigDecimal>> ohlc;
 
-  public Coin(String apiId,
+  public Coin(String id,
               String name,
               String symbol,
               BigDecimal currentPrice,
@@ -41,7 +36,7 @@ public class Coin {
               BigDecimal atl,
               String image,
               LocalDate lastUpdated) {
-    this.apiId = apiId;
+    this.id = id;
     this.name = name;
     this.symbol = symbol;
     this.currentPrice = currentPrice;

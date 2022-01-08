@@ -16,10 +16,10 @@ import java.util.List;
 
 @Service
 public class CoinService {
-  @Autowired
   private final CoinGeckoClient coinGeckoClient;
   Logger logger = LoggerFactory.getLogger(CoinService.class);
 
+  @Autowired
   public CoinService(CoinGeckoClient coinGeckoClient) {
     this.coinGeckoClient = coinGeckoClient;
   }
