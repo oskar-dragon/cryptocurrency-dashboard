@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   --clr-light: #fff;
   --clr-black: #0D0D0D;
   --clr-semilight: #9A9FA6;
+  --clr-lightgrey: #F1F2F6;
   --clr-primary: #4A86FE;
   --clr-accent-primary: #FD6F3F;
   --clr-accent-secondary: #66A995;
