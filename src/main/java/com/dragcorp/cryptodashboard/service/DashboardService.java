@@ -54,7 +54,7 @@ public class DashboardService {
   protected Counters createCounters(List<Coin> coins) {
     List<Coin> sortedCoins = coins
         .stream()
-        .sorted(Comparator.comparing(Coin::getPriceChangePerc24h))
+        .sorted(Comparator.comparing(Coin::getPriceChangePerc24h).reversed())
         .collect(Collectors.toList());
     List<Coin> topGainers = sortedCoins
         .stream()
