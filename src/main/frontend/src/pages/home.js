@@ -1,12 +1,12 @@
 import React from "react";
-import { Header } from "../Containers";
-import { Feed } from "../Containers";
+import { HeaderContainer } from "../Containers";
+import { FeedContainer } from "../Containers";
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <Feed />
+      <HeaderContainer />
+      <FeedContainer />
     </>
   );
 }
