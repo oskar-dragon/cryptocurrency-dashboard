@@ -9,9 +9,11 @@ export default function PerformerContainer(data) {
     setActiveItem(name);
   }
 
+  console.log(data);
+
   return (
     <Card>
-      <Card.HeaderContainer flexDirection={"row"}>
+      <Card.HeaderContainer flexDirection="row">
         <Card.HeaderTitle>Top Performers</Card.HeaderTitle>
         <Card.FiltersGroup>
           <Card.Filter

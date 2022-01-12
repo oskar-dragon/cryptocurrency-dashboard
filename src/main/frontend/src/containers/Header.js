@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Segment, Search } from "../Components";
-import coinData from "../Data/Search.json";
+import { Segment, Header, Search } from "../Components";
+import coinData from "../Data/search.json";
 import * as ROUTES from "../Constants/routes";
 
-export default function Header() {
+export default function HeaderContainer() {
   const [filteredData, setFilteredData] = useState([]);
 
   function handleFilter(e) {
@@ -20,38 +20,31 @@ export default function Header() {
   }
 
   return (
-    <Segment>
-      <Segment.InnerContainer align="center" justify={"flex-start"}>
-        <Segment.Title>
-          <Segment.Span>Hello... </Segment.Span>
+    <Segment justifyContent="space-between">
+      <Header>
+        <Header.Title>
+          <Header.Span>Hello... </Header.Span>
           Oskar
-        </Segment.Title>
-      </Segment.InnerContainer>
+        </Header.Title>
+      </Header>
 
-      <Segment.InnerContainer>
-        <Search>
-          <Search.InputsWrapper>
-            <Search.Input placeholder="Search..." onChange={handleFilter} />
-            <Search.Icon />
-          </Search.InputsWrapper>
-          {filteredData.length > 0 && (
-            <Search.ResultsList>
-              {filteredData.slice(0, 15).map(coin => (
-                <Search.ResultItem key={coin.apiId}>
-                  <Search.ResultLink to={ROUTES.COIN_DETAILS}>
-                    {coin.name}
-                  </Search.ResultLink>
-                </Search.ResultItem>
-              ))}
-            </Search.ResultsList>
-          )}
-        </Search>
-      </Segment.InnerContainer>
+      <Search>
+        <Search.InputsWrapper>
+          <Search.Input placeholder="Search..." onChange={handleFilter} />
+          <Search.Icon />
+        </Search.InputsWrapper>
+        {filteredData.length > 0 && (
+          <Search.ResultsList>
+            {filteredData.slice(0, 15).map(coin => (
+              <Search.ResultItem key={coin.apiId}>
+                <Search.ResultLink to={ROUTES.COIN_DETAILS}>
+                  {coin.name}
+                </Search.ResultLink>
+              </Search.ResultItem>
+            ))}
+          </Search.ResultsList>
+        )}
+      </Search>
     </Segment>
   );
 }
-
-// ResultWrapper
-// ResultIcon
-// ResultTitle
-// ResultSymbol
