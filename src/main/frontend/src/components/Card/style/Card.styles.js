@@ -88,6 +88,7 @@ export const Price = styled.p`
 export const PriceChange = styled.p`
   margin: 0;
   text-align: right;
-  color: var(--clr-accent-secondary);
+  color: ${({ children: price }) =>
+    price[0] > 0 ? "var(--clr-accent-secondary)" : "var(--clr-accent-primary)"};
   font-weight: var(--fw-medium);
 `;
