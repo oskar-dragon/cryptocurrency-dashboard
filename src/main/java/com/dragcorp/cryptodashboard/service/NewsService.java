@@ -28,7 +28,7 @@ public class NewsService {
 
   public News getNewsFromDb(LocalDate date) {
     logger.debug("fetching news from db...");
-    return newsRepository.findFirstByOrderByCreatedAtDesc(date);
+    return newsRepository.findByCreatedAt(date);
   }
 
   public News fetchNewsFromApi() {

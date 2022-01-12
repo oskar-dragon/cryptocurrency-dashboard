@@ -14,11 +14,6 @@ public class News {
   @Id
   private String id;
   @Indexed
-  private LocalDate createdAt;
-  private List<Article> data;
-
-  public News(LocalDate createdAt, List<Article> data) {
-    this.createdAt = createdAt;
-    this.data = data;
-  }
+  private final LocalDate createdAt;
+  private final List<Article> data;
 }
