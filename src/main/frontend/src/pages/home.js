@@ -1,6 +1,12 @@
 import React from "react";
-import { PerformerContainer } from "../Containers";
+import { Header } from "../Containers";
+import { Feed } from "../Containers";
 
 export default function Home() {
-  return <PerformerContainer />;
+  return (
+    <>
+      <Header />
+      <Feed />
+    </>
+  );
 }

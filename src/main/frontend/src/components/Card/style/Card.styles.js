@@ -10,7 +10,7 @@ export const Group = styled.div`
 export const Container = styled.div`
   background: var(--clr-light);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   padding: 1em;
   border-radius: 8px;
   height: 250px;

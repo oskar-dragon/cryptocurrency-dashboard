@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.section`
   display: flex;
-  flex-direction: row;
+  width: 98%;
+  max-width: 1900px;
+
   justify-content: space-between;
-  margin: 1em 0;
+  margin: 1em auto;
+  gap: 1em;
 `;
 
 export const InnerContainer = styled.div`
