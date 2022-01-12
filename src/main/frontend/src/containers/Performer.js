@@ -28,8 +28,8 @@ export default function PerformerContainer(data) {
       </Card.HeaderContainer>
 
       <Card.Content flexDirection={"column"}>
-        {data.data.map(coin => (
-          <Card.CoinWrapper>
+        {data.data.map((coin, index) => (
+          <Card.CoinWrapper key={index}>
             <Card.CoinTitle>{coin.name}</Card.CoinTitle>
             <Card.Price>${coin.currentPrice}</Card.Price>
             <Card.MarketCap>{coin.symbol.toUpperCase()}</Card.MarketCap>
