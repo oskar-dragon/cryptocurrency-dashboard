@@ -35,6 +35,7 @@ public class CoinGeckoClient {
       MarketsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
               .queryParam("vs_currency", currency)
+              .queryParam("price_change_percentage", "1h,24h,7d,30d")
               .build())
           .retrieve()
           .bodyToMono(MarketsResponse.class)

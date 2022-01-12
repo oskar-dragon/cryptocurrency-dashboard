@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class Dashboard {
   private List<Coin> coins;
-  private Counters counters;
+  private News news;
 
   public Dashboard() {
   }
