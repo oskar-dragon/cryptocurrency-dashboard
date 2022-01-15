@@ -2,13 +2,14 @@ package com.dragcorp.cryptodashboard.model;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 public class Article {
   private final String id;
   private final String guid;
-  private final Date publishedOn;
+  private final LocalDateTime publishedOn;
   private final String title;
   private final String imageUrl;
   private final String url;

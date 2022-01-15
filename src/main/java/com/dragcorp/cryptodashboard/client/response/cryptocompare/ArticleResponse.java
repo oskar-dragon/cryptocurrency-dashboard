@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Value
@@ -12,7 +14,7 @@ import java.util.Date;
 public class ArticleResponse {
   String id;
   String guid;
-  Date publishedOn;
+  int publishedOn;
   String title;
   String imageUrl;
   String url;
@@ -28,7 +30,7 @@ public class ArticleResponse {
   @JsonCreator
   public ArticleResponse(@JsonProperty("id") String id,
                          @JsonProperty("guid") String guid,
-                         @JsonProperty("published_on") Date publishedOn,
+                         @JsonProperty("published_on") int publishedOn,
                          @JsonProperty("imageurl") String imageUrl,
                          @JsonProperty("title") String title,
                          @JsonProperty("url") String url,
