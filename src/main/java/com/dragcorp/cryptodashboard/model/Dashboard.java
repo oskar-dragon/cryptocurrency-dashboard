@@ -9,6 +9,5 @@ public class Dashboard {
   private List<Coin> coins;
   private News news;
 
-  public Dashboard() {
-  }
+  public Dashboard() { }
 }

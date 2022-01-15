@@ -45,7 +45,6 @@ public class DashboardService {
         .map(ResponseConverter::convertToCoin)
         .collect(Collectors.toList());
     dashboard.setCoins(coins);
-
     News news = newsService.getNewsFromDb(LocalDate.now());
     if (news == null) {
       news = newsService.fetchNewsFromApi();

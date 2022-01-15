@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.time.LocalDate;
 
 public interface NewsRepository extends MongoRepository<News, String> {
-  News findFirstByOrderByCreatedAtDesc(LocalDate createdAt);
+  News findByCreatedAt(LocalDate date);
 }
