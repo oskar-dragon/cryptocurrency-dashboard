@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "../Components";
 
-export default function PerformerContainer(data) {
+export default function PerformerContainer({ data, title }) {
   const [activeItem, setActiveItem] = useState("1h");
   const filterValues = ["1h", "1d", "7d", "1m"];
 
@@ -13,7 +13,7 @@ export default function PerformerContainer(data) {
   return (
     <Card>
       <Card.HeaderContainer flexDirection="row">
-        <Card.HeaderTitle>Top Performers</Card.HeaderTitle>
+        <Card.HeaderTitle>{title}</Card.HeaderTitle>
         <Card.FiltersGroup>
           {filterValues.map(value => (
             <Card.Filter
@@ -28,7 +28,7 @@ export default function PerformerContainer(data) {
       </Card.HeaderContainer>
 
       <Card.Content flexDirection={"column"}>
-        {data.data.map((coin, index) => (
+        {data.map((coin, index) => (
           <Card.CoinWrapper key={index}>
             <Card.CoinTitle>{coin.name}</Card.CoinTitle>
             <Card.Price>${coin.currentPrice}</Card.Price>
