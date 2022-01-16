@@ -1,26 +1,21 @@
 import React from "react";
 import { NewsCard } from "../Components";
+import { truncateString, convertDate } from "../Utils";
 
 export default function NewsContainer({ data }) {
   return (
     <NewsCard>
       <NewsCard.HeaderTitle>News</NewsCard.HeaderTitle>
       <NewsCard.Content>
-        <NewsCard.Container>
-          <NewsCard.Image url={data[0].title} />
-          <NewsCard.Title>{data[0].imageUrl}</NewsCard.Title>
-          <NewsCard.LastUpdated>{data[0].publishedOn}</NewsCard.LastUpdated>
-        </NewsCard.Container>
-        <NewsCard.Container>
-          <NewsCard.Image />
-          <NewsCard.Title>Title</NewsCard.Title>
-          <NewsCard.LastUpdated>10:00PM 24-08-2022</NewsCard.LastUpdated>
-        </NewsCard.Container>
-        <NewsCard.Container>
-          <NewsCard.Image />
-          <NewsCard.Title>Title</NewsCard.Title>
-          <NewsCard.LastUpdated>10:00PM 24-08-2022</NewsCard.LastUpdated>
-        </NewsCard.Container>
+        {data.slice(0, 15).map(news => (
+          <NewsCard.Container href={news.url} target="_blank">
+            <NewsCard.Image url={news.title} />
+            <NewsCard.Title>{truncateString(news.imageUrl, 40)}</NewsCard.Title>
+            <NewsCard.LastUpdated>
+              {convertDate(news.publishedOn)}
+            </NewsCard.LastUpdated>
+          </NewsCard.Container>
+        ))}
       </NewsCard.Content>
     </NewsCard>
   );

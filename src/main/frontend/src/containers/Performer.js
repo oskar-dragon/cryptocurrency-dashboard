@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { filterValues } from "../Constants/filterValues";
 import { Card } from "../Components";
 
 export default function PerformerContainer({ data, title }) {
   const [activeItem, setActiveItem] = useState("1h");
-  const filterValues = ["1h", "1d", "7d", "1m"];
 
   function handleFilterClick(e) {
     const name = e.target.name;
@@ -15,8 +15,9 @@ export default function PerformerContainer({ data, title }) {
       <Card.HeaderContainer flexDirection="row">
         <Card.HeaderTitle>{title}</Card.HeaderTitle>
         <Card.FiltersGroup>
-          {filterValues.map(value => (
+          {filterValues.map((value, index) => (
             <Card.Filter
+              key={index}
               onClick={handleFilterClick}
               name={value}
               active={activeItem === value}

@@ -30,10 +30,13 @@ export const Content = styled.div`
   overflow-y: auto;
 `;
 
-export const NewsContainer = styled.div`
+export const NewsContainer = styled.a`
   width: 100%;
   display: grid;
-  grid-template-columns: 50px 1fr
+  grid-template-columns: 50px 1fr;
+  gap: 0 1em;
+  color: var(--clr-black);
+  text-decoration: none;
 
   justify-content: space-between;
   margin-top: 1em;
@@ -50,6 +53,12 @@ export const Title = styled.h4`
   margin: 0;
 `;
 
-export const Image = styled.img``;
+export const Image = styled.img`
+  border-radius: 5px;
+`;
 
-export const LastUpdated = styled.p``;
+export const LastUpdated = styled.p`
+  margin: 0 0 0 4.6em;
+  color: var(--clr-semilight);
+  font-weight: var(--fw-medium);
+`;

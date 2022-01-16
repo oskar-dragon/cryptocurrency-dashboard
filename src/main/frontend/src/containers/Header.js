@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Segment, Header, Search } from "../Components";
-import coinData from "../Data/search.json";
+import CoinsService from "../Services/coinsService";
 import * as ROUTES from "../Constants/routes";
 
 export default function HeaderContainer() {
   const [filteredData, setFilteredData] = useState([]);
+  const [coins, setCoins] = useState([]);
 
   function handleFilter(e) {
     const searchQuery = e.target.value;
-    const newFilter = coinData.filter(coin =>
+    const newFilter = coins.filter(coin =>
       coin.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -18,6 +19,10 @@ export default function HeaderContainer() {
       setFilteredData(newFilter);
     }
   }
+
+  useEffect(() => {
+    CoinsService.getAllCoins().then(res => setCoins(res.data));
+  }, []);
 
   return (
     <Segment justifyContent="space-between">
@@ -35,8 +40,8 @@ export default function HeaderContainer() {
         </Search.InputsWrapper>
         {filteredData.length > 0 && (
           <Search.ResultsList>
-            {filteredData.slice(0, 15).map(coin => (
-              <Search.ResultItem key={coin.apiId}>
+            {filteredData.slice(0, 15).map((coin, index) => (
+              <Search.ResultItem key={index}>
                 <Search.ResultLink to={ROUTES.COIN_DETAILS}>
                   {coin.name}
                 </Search.ResultLink>

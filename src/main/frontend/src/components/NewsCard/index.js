@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Container,
-  HeaderContainer,
   HeaderTitle,
   Content,
   NewsContainer,
