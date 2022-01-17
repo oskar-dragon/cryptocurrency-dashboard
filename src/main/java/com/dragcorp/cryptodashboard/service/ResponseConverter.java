@@ -9,14 +9,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 @Component
 public class ResponseConverter {
 
   public static Article convertToArticle(ArticleResponse response) {
-
     return new Article(
         response.getId(),
         response.getGuid(),
@@ -45,10 +43,7 @@ public class ResponseConverter {
         response.getName(),
         response.getSymbol(),
         response.getCurrentPrice(),
-        response.getPriceChangePerc1h(),
-        response.getPriceChangePerc24h(),
-        response.getPriceChangePerc7d(),
-        response.getPriceChangePerc30d(),
+        response.getPriceChangePerc(),
         response.getTotalVolume(),
         response.getMarketCapRank(),
         response.getHigh24h(),

@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CoinService {
@@ -24,15 +26,15 @@ public class CoinService {
     this.coinGeckoClient = coinGeckoClient;
   }
 
-  public Coin getCoinData(String id, String currency, int ohlcDays) {
+  public Coin getCoin(String id, String currency, int ohlcDays) {
     logger.debug("fetching markets data for {}({}), days: {}", id, currency, ohlcDays);
     MarketsResponse response = coinGeckoClient.getMarketsDataForCoin(id, currency);
     logger.debug("fetching markets data done");
     List<CoinResponse> coinsResponse = response.getCoins();
     Coin coin = coinsResponse
         .stream()
-        .map(ResponseConverter::convertToCoin)
         .findFirst()
+        .map(ResponseConverter::convertToCoin)
         .orElse(null);
     if (coin == null) {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
@@ -42,5 +44,55 @@ public class CoinService {
     logger.debug("fetching coin ohlc data done");
     coin.setOhlc(ohlcResponse.getOhlcData());
     return coin;
+  }
+
+  public List<Coin> getCoins(String currency) {
+    logger.debug("fetching markets data for {}...", currency);
+    MarketsResponse response = coinGeckoClient.getMarketsData(currency);
+    logger.debug("fetching markets data done");
+    List<CoinResponse> coins = response.getCoins();
+    if (coins == null) {
+      logger.debug("coin response is null");
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Failed to fetch data for dashboard");
+    }
+    return coins
+        .stream()
+        .filter(coin -> coin.getPriceChangePerc() != null)
+        .map(ResponseConverter::convertToCoin)
+        .collect(Collectors.toList());
+  }
+
+  public List<Coin> getTopGainers(String currency, String period) {
+    MarketsResponse response = coinGeckoClient.getMarketsData(currency, period);
+    logger.debug("fetching markets data done");
+    List<CoinResponse> coins = response.getCoins();
+    if (coins == null) {
+      logger.debug("coin response is null");
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Failed to fetch data for top gainers");
+    }
+    return coins
+        .stream()
+        .filter(coin -> coin.getPriceChangePerc() != null)
+        .sorted(Comparator.comparing(CoinResponse::getPriceChangePerc).reversed())
+        .limit(5)
+        .map(ResponseConverter::convertToCoin)
+        .collect(Collectors.toList());
+  }
+
+  public List<Coin> getTopLosers(String currency, String period) {
+    MarketsResponse response = coinGeckoClient.getMarketsData(currency, period);
+    logger.debug("fetching markets data done");
+    List<CoinResponse> coins = response.getCoins();
+    if (coins == null) {
+      logger.debug("coin response is null");
+      throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Failed to fetch data for top losers");
+    }
+    return coins
+        .stream()
+        .filter(coin -> coin.getPriceChangePerc() != null)
+        .sorted(Comparator.comparing(CoinResponse::getPriceChangePerc))
+        .limit(5)
+        .map(ResponseConverter::convertToCoin)
+        .collect(Collectors.toList());
   }
 }
