@@ -26,6 +26,14 @@ public class NewsService {
     this.newsRepository = newsRepository;
   }
 
+  public News getNews() {
+    News news = getNewsFromDb(LocalDate.now());
+    if (news == null) {
+      news = fetchNewsFromApi();
+    }
+    return news;
+  }
+
   public News getNewsFromDb(LocalDate date) {
     logger.debug("fetching news from db...");
     return newsRepository.findByCreatedAt(date);

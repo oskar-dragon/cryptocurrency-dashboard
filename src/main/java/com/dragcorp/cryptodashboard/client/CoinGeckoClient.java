@@ -35,11 +35,29 @@ public class CoinGeckoClient {
       MarketsResponse response = this.webClient.get()
           .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
               .queryParam("vs_currency", currency)
-              .queryParam("price_change_percentage", "1h,24h,7d,30d")
               .build())
           .retrieve()
           .bodyToMono(MarketsResponse.class)
           .block();
+      logger.debug("get markets data endpoint; got a response: {}", response);
+      return response;
+    } catch (WebClientResponseException exception) {
+      String message = deserialiseErrorResponse(exception.getResponseBodyAsString());
+      logger.debug("error response from gecko api: {}", message);
+      throw new HttpClientErrorException(exception.getStatusCode(), message);
+    }
+  }
+
+  public MarketsResponse getMarketsData(String currency, String period) {
+    try {
+      MarketsResponse response = this.webClient.get()
+              .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
+                      .queryParam("vs_currency", currency)
+                      .queryParam("price_change_percentage", period)
+                      .build())
+              .retrieve()
+              .bodyToMono(MarketsResponse.class)
+              .block();
       logger.debug("get markets data endpoint; got a response: {}", response);
       return response;
     } catch (WebClientResponseException exception) {

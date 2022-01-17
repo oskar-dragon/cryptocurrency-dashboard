@@ -7,6 +7,7 @@ import lombok.Value;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -23,10 +24,7 @@ public class CoinResponse {
   BigDecimal high24h;
   BigDecimal low24h;
   BigDecimal priceChange24h;
-  float priceChangePerc1h;
-  float priceChangePerc24h;
-  float priceChangePerc7d;
-  float priceChangePerc30d;
+  BigDecimal priceChangePerc;
   BigDecimal marketCapChange24h;
   float marketCapChangePerc24h;
   BigDecimal circulatingSupply;
@@ -39,7 +37,7 @@ public class CoinResponse {
   float atlChangePerc;
   LocalDate atlDate;
   Roi roi;
-  LocalDate lastUpdated;
+  LocalDateTime lastUpdated;
 
   @JsonCreator
   public CoinResponse(
@@ -55,10 +53,11 @@ public class CoinResponse {
       @JsonProperty("high_24h") BigDecimal high24h,
       @JsonProperty("low_24h") BigDecimal low24h,
       @JsonProperty("price_change_24h") BigDecimal priceChange24h,
-      @JsonProperty("price_change_percentage_1h_in_currency") float priceChangePerc1h,
-      @JsonProperty("price_change_percentage_24h_in_currency") float priceChangePerc24h,
-      @JsonProperty("price_change_percentage_7d_in_currency") float priceChangePerc7d,
-      @JsonProperty("price_change_percentage_30d_in_currency") float priceChangePerc30d,
+      @JsonProperty("price_change_percentage_24h") BigDecimal priceChangePercDefault,
+      @JsonProperty("price_change_percentage_1h_in_currency") BigDecimal priceChangePerc1h,
+      @JsonProperty("price_change_percentage_24h_in_currency") BigDecimal priceChangePerc24h,
+      @JsonProperty("price_change_percentage_7d_in_currency") BigDecimal priceChangePerc7d,
+      @JsonProperty("price_change_percentage_30d_in_currency") BigDecimal priceChangePerc30d,
       @JsonProperty("market_cap_change_24h") BigDecimal marketCapChange24h,
       @JsonProperty("market_cap_change_percentage_24h") float marketCapChangePerc24h,
       @JsonProperty("circulating_supply") BigDecimal circulatingSupply,
@@ -71,7 +70,7 @@ public class CoinResponse {
       @JsonProperty("atl_change_percentage") float atlChangePerc,
       @JsonProperty("atl_date") LocalDate atlDate,
       @JsonProperty("roi") Roi roi,
-      @JsonProperty("last_updated") LocalDate lastUpdated
+      @JsonProperty("last_updated") LocalDateTime lastUpdated
   ) {
     this.id = id;
     this.symbol = symbol;
@@ -85,10 +84,17 @@ public class CoinResponse {
     this.high24h = high24h;
     this.low24h = low24h;
     this.priceChange24h = priceChange24h;
-    this.priceChangePerc1h = priceChangePerc1h;
-    this.priceChangePerc24h = priceChangePerc24h;
-    this.priceChangePerc7d = priceChangePerc7d;
-    this.priceChangePerc30d = priceChangePerc30d;
+    if (priceChangePerc1h != null) {
+      this.priceChangePerc = priceChangePerc1h;
+    } else if (priceChangePerc24h != null) {
+      this.priceChangePerc = priceChangePerc24h;
+    } else if (priceChangePerc7d != null) {
+      this.priceChangePerc = priceChangePerc7d;
+    } else if (priceChangePerc30d != null) {
+      this.priceChangePerc = priceChangePerc30d;
+    } else {
+      this.priceChangePerc = priceChangePercDefault;
+    }
     this.marketCapChange24h = marketCapChange24h;
     this.marketCapChangePerc24h = marketCapChangePerc24h;
     this.circulatingSupply = circulatingSupply;
