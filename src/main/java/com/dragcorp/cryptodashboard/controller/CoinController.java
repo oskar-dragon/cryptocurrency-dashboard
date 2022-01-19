@@ -2,10 +2,9 @@ package com.dragcorp.cryptodashboard.controller;
 
 import com.dragcorp.cryptodashboard.model.Coin;
 import com.dragcorp.cryptodashboard.service.CoinService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/coins/{currency}")
@@ -26,13 +25,15 @@ public class CoinController {
     return coinService.getCoins(currency);
   }
 
-  @GetMapping(value="/topgainers/{period}")
-  public List<Coin> getTopGainers(@PathVariable("currency") String currency, @PathVariable("period") String period) {
+  @GetMapping(value = "/topgainers/{period}")
+  public List<Coin> getTopGainers(@PathVariable("currency") String currency,
+                                  @PathVariable("period") String period) {
     return coinService.getTopGainers(currency, period);
   }
 
-  @GetMapping(value="/toplosers/{period}")
-  public List<Coin> getTopLosers(@PathVariable("currency") String currency, @PathVariable("period") String period) {
+  @GetMapping(value = "/toplosers/{period}")
+  public List<Coin> getTopLosers(@PathVariable("currency") String currency,
+                                 @PathVariable("period") String period) {
     return coinService.getTopLosers(currency, period);
   }
 }

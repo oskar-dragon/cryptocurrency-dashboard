@@ -5,16 +5,15 @@ import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
 import com.dragcorp.cryptodashboard.model.Coin;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CoinService {

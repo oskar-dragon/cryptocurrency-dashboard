@@ -3,9 +3,8 @@ package com.dragcorp.cryptodashboard.client.response.cryptocompare;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
-
 import java.util.List;
+import lombok.Value;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,14 +17,12 @@ public class NewsResponse {
   boolean hasWarning;
 
   @JsonCreator
-  public NewsResponse(
-      @JsonProperty("Type") int type,
-      @JsonProperty("Message") String message,
-      @JsonProperty("Promoted") List<ArticleResponse> promoted,
-      @JsonProperty("Data") List<ArticleResponse> data,
-      @JsonProperty("RateLimit") RateLimit rateLimit,
-      @JsonProperty("HasWarning") boolean hasWarning
-  ) {
+  public NewsResponse(@JsonProperty("Type") int type,
+                      @JsonProperty("Message") String message,
+                      @JsonProperty("Promoted") List<ArticleResponse> promoted,
+                      @JsonProperty("Data") List<ArticleResponse> data,
+                      @JsonProperty("RateLimit") RateLimit rateLimit,
+                      @JsonProperty("HasWarning") boolean hasWarning) {
     this.type = type;
     this.message = message;
     this.promoted = promoted;

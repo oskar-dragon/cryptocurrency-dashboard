@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://cryptoproject:Roland909@cryptodashboardcluster.szfnq.mongodb.net/crypto_dashboard?retryWrites=true&w=majority
+  cloud:
+    vault:
+      enabled: false

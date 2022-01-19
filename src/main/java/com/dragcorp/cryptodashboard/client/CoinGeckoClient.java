@@ -1,7 +1,7 @@
 package com.dragcorp.cryptodashboard.client;
 
-import com.dragcorp.cryptodashboard.client.response.coingecko.ErrorResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.CoinOhlcResponse;
+import com.dragcorp.cryptodashboard.client.response.coingecko.ErrorResponse;
 import com.dragcorp.cryptodashboard.client.response.coingecko.MarketsResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,13 +51,13 @@ public class CoinGeckoClient {
   public MarketsResponse getMarketsData(String currency, String period) {
     try {
       MarketsResponse response = this.webClient.get()
-              .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
-                      .queryParam("vs_currency", currency)
-                      .queryParam("price_change_percentage", period)
-                      .build())
-              .retrieve()
-              .bodyToMono(MarketsResponse.class)
-              .block();
+          .uri(uriBuilder -> uriBuilder.path(MARKETS_URI)
+              .queryParam("vs_currency", currency)
+              .queryParam("price_change_percentage", period)
+              .build())
+          .retrieve()
+          .bodyToMono(MarketsResponse.class)
+          .block();
       logger.debug("get markets data endpoint; got a response: {}", response);
       return response;
     } catch (WebClientResponseException exception) {

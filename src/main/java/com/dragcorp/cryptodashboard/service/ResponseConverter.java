@@ -5,11 +5,10 @@ import com.dragcorp.cryptodashboard.client.response.cryptocompare.ArticleRespons
 import com.dragcorp.cryptodashboard.model.Article;
 import com.dragcorp.cryptodashboard.model.ArticleSourceInfo;
 import com.dragcorp.cryptodashboard.model.Coin;
-import org.springframework.stereotype.Component;
-
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ResponseConverter {
@@ -57,8 +56,8 @@ public class ResponseConverter {
 
   public static LocalDateTime convertToDate(int timestamp) {
     return LocalDateTime.ofInstant(
-            Instant.ofEpochSecond(timestamp),
-            TimeZone.getDefault().toZoneId()
+        Instant.ofEpochSecond(timestamp),
+        TimeZone.getDefault().toZoneId()
     );
   }
 }

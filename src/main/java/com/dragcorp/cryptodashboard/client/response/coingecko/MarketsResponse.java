@@ -2,9 +2,8 @@ package com.dragcorp.cryptodashboard.client.response.coingecko;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Value;
-
 import java.util.List;
+import lombok.Value;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)

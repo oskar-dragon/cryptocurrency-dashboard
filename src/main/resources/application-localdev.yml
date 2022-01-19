@@ -1,0 +1,14 @@
+spring:
+  profile: localdev
+  data:
+    mongodb:
+      authentication-database: admin
+      database: crypto_dashboard
+      port: 27018
+      host: mongodb
+      username: admin
+      password: secret
+      auto-index-creation: true
+  cloud:
+    vault:
+      enabled: false

@@ -1,10 +1,9 @@
 package com.dragcorp.cryptodashboard.model;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class Coin {

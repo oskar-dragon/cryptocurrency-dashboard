@@ -3,11 +3,10 @@ package com.dragcorp.cryptodashboard.client.response.coingecko;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Value;
 
 @Value
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,38 +39,36 @@ public class CoinResponse {
   LocalDateTime lastUpdated;
 
   @JsonCreator
-  public CoinResponse(
-      @JsonProperty("id") String id,
-      @JsonProperty("symbol") String symbol,
-      @JsonProperty("name") String name,
-      @JsonProperty("image") String image,
-      @JsonProperty("current_price") BigDecimal currentPrice,
-      @JsonProperty("market_cap") BigDecimal marketCap,
-      @JsonProperty("market_cap_rank") int marketCapRank,
-      @JsonProperty("fully_diluted_valuation") BigDecimal fullyDilutedValuation,
-      @JsonProperty("total_volume") BigDecimal totalVolume,
-      @JsonProperty("high_24h") BigDecimal high24h,
-      @JsonProperty("low_24h") BigDecimal low24h,
-      @JsonProperty("price_change_24h") BigDecimal priceChange24h,
-      @JsonProperty("price_change_percentage_24h") BigDecimal priceChangePercDefault,
-      @JsonProperty("price_change_percentage_1h_in_currency") BigDecimal priceChangePerc1h,
-      @JsonProperty("price_change_percentage_24h_in_currency") BigDecimal priceChangePerc24h,
-      @JsonProperty("price_change_percentage_7d_in_currency") BigDecimal priceChangePerc7d,
-      @JsonProperty("price_change_percentage_30d_in_currency") BigDecimal priceChangePerc30d,
-      @JsonProperty("market_cap_change_24h") BigDecimal marketCapChange24h,
-      @JsonProperty("market_cap_change_percentage_24h") float marketCapChangePerc24h,
-      @JsonProperty("circulating_supply") BigDecimal circulatingSupply,
-      @JsonProperty("total_supply") BigDecimal totalSupply,
-      @JsonProperty("max_supply") BigDecimal maxSupply,
-      @JsonProperty("ath") BigDecimal ath,
-      @JsonProperty("ath_change_percentage") float athChangePerc,
-      @JsonProperty("ath_date") LocalDate athDate,
-      @JsonProperty("atl") BigDecimal atl,
-      @JsonProperty("atl_change_percentage") float atlChangePerc,
-      @JsonProperty("atl_date") LocalDate atlDate,
-      @JsonProperty("roi") Roi roi,
-      @JsonProperty("last_updated") LocalDateTime lastUpdated
-  ) {
+  public CoinResponse(@JsonProperty("id") String id,
+                      @JsonProperty("symbol") String symbol,
+                      @JsonProperty("name") String name,
+                      @JsonProperty("image") String image,
+                      @JsonProperty("current_price") BigDecimal currentPrice,
+                      @JsonProperty("market_cap") BigDecimal marketCap,
+                      @JsonProperty("market_cap_rank") int marketCapRank,
+                      @JsonProperty("fully_diluted_valuation") BigDecimal fullyDilutedValuation,
+                      @JsonProperty("total_volume") BigDecimal totalVolume,
+                      @JsonProperty("high_24h") BigDecimal high24h,
+                      @JsonProperty("low_24h") BigDecimal low24h,
+                      @JsonProperty("price_change_24h") BigDecimal priceChange24h,
+                      @JsonProperty("price_change_percentage_24h") BigDecimal priceChangePercDefault,
+                      @JsonProperty("price_change_percentage_1h_in_currency") BigDecimal priceChangePerc1h,
+                      @JsonProperty("price_change_percentage_24h_in_currency") BigDecimal priceChangePerc24h,
+                      @JsonProperty("price_change_percentage_7d_in_currency") BigDecimal priceChangePerc7d,
+                      @JsonProperty("price_change_percentage_30d_in_currency") BigDecimal priceChangePerc30d,
+                      @JsonProperty("market_cap_change_24h") BigDecimal marketCapChange24h,
+                      @JsonProperty("market_cap_change_percentage_24h") float marketCapChangePerc24h,
+                      @JsonProperty("circulating_supply") BigDecimal circulatingSupply,
+                      @JsonProperty("total_supply") BigDecimal totalSupply,
+                      @JsonProperty("max_supply") BigDecimal maxSupply,
+                      @JsonProperty("ath") BigDecimal ath,
+                      @JsonProperty("ath_change_percentage") float athChangePerc,
+                      @JsonProperty("ath_date") LocalDate athDate,
+                      @JsonProperty("atl") BigDecimal atl,
+                      @JsonProperty("atl_change_percentage") float atlChangePerc,
+                      @JsonProperty("atl_date") LocalDate atlDate,
+                      @JsonProperty("roi") Roi roi,
+                      @JsonProperty("last_updated") LocalDateTime lastUpdated) {
     this.id = id;
     this.symbol = symbol;
     this.name = name;
